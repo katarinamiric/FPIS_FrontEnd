@@ -1,0 +1,78 @@
+<mat-card>
+  <mat-card-title>Kreiranje racuna</mat-card-title>
+  <form [formGroup]="form" class="form">
+    <div class="row">
+      <div class="col-lg-10"></div>
+      <div class="col-lg-2">
+
+        <button mat-menu-item (click)="saveRacun()" [disabled]="!form.valid || stavke?.length == 0">
+          <mat-icon> save</mat-icon>
+          <span>Sacuvaj racun</span>
+        </button>
+      </div>
+    </div>
+    <mat-vertical-stepper [linear]="true">
+      <mat-step label="Detalji racuna">
+
+        <br>
+        <mat-form-field class="form-element" [appearance]="'outline'" color="accent">
+          <mat-label>Poziv na broj</mat-label>
+          <input matInput formControlName="pozivNaBroj" placeholder="Poziv na broj">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Datum</mat-label>
+          <input matInput [formControlName]="'datum'" [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+        </mat-form-field>
+
+
+        <mat-form-field appearance="fill">
+          <mat-label>Radnik</mat-label>
+          <mat-select [compareWith]="compareFunctionRadnik" [formControlName]="'radnik'">
+            <mat-option *ngFor="let radnik of radnici" [value]=radnik>
+              {{radnik.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Nacin placanja</mat-label>
+          <mat-select [compareWith]="compareFunctionNaciniPlacanja" [formControlName]="'nacinPlacanja'">
+            <mat-option *ngFor="let nacinPlacanja of naciniPlacanja" [value]=nacinPlacanja>
+              {{nacinPlacanja.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+
+            <mat-form-field [appearance]="'outline'" color="accent">
+              <mat-label>Broj ugovora</mat-label>
+              <input matInput formControlName="brojUgovora"/>
+            </mat-form-field>
+
+            <mat-form-field [appearance]="'outline'" color="accent">
+              <mat-label>Sifra zahteva</mat-label>
+              <input matInput formControlName="sifraZahteva"/>
+            </mat-form-field>
+        <button (click)="openPretragaUgovoraDialog()" mat-flat-button>Pretraga ugovora</button>
+
+      </mat-step>
+
+
+      <mat-step label="Stavke racuna">
+        <app-stavka-racuna></app-stavka-racuna>
+        <div style="float: right">
+          <mat-label>Ukupan Iznos:</mat-label>
+
+          <mat-form-field class="form-element" [appearance]="'fill'" color="accent">
+            <input matInput formControlName="iznos">
+          </mat-form-field>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+  </form>
+
+</mat-card>

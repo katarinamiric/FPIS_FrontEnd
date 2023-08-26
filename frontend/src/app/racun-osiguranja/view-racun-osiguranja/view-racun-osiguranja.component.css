@@ -1,0 +1,17 @@
+.mat-icon {
+  font-size: 250px;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 2px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+th{
+  background-color: lightgrey
+}

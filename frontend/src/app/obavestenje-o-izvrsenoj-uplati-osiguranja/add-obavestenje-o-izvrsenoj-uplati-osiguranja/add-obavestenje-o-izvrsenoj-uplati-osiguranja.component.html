@@ -1,0 +1,88 @@
+<div style="padding: 40px">
+  <h2>Kreiranje uplatnice</h2>
+  <div class="mat-typography">
+    <form [formGroup]="form" class="form">
+      <mat-card-content>
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field class="form-element" [appearance]="'outline'" color="accent">
+              <mat-label>Svrha obavestenja</mat-label>
+              <input matInput formControlName="svrhaObavestenja" placeholder="svrha obavestenja"/>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field class="cof-form-field" appearance="fill">
+              <mat-label>Datum</mat-label>
+              <input matInput formControlName="datum" [matDatepicker]="picker">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6">
+            <mat-form-field appearance="fill">
+              <mat-label>Osiguravajuca kuca</mat-label>
+              <mat-select [compareWith]="compareFunctionOsigKuca" [formControlName]="'osiguravajucaKuca'">
+                <mat-option *ngFor="let osigKuca of osiguravajuceKuce" [value]=osigKuca>
+                  {{osigKuca.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-6">
+
+            <mat-form-field appearance="fill">
+              <mat-label>Radnik</mat-label>
+              <mat-select [compareWith]="compareFunctionRadnik" [formControlName]="'radnik'">
+                <mat-option *ngFor="let radnik of radnici" [value]=radnik>
+                  {{radnik.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="row">
+          <button (click)="openPretragaUplatniceDialog()" mat-button>Pretraga uplatnice
+          </button>
+        </div>
+
+        <div class="row">
+          <div class="col-md-4">
+            <mat-form-field class="form-element" [appearance]="'outline'" color="accent">
+              <mat-label>ID uplatnice</mat-label>
+              <input matInput formControlName="idUplatnice"/>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field class="form-element" [appearance]="'outline'" color="accent">
+              <mat-label>Svrha uplate</mat-label>
+              <input matInput formControlName="svrhaUplatnice"/>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-4">
+            <mat-form-field class="form-element" [appearance]="'outline'" color="accent">
+              <mat-label>Iznos uplatnice</mat-label>
+              <input matInput formControlName="iznosUplatnice" placeholder="svrha obavestenja"/>
+            </mat-form-field>
+          </div>
+        </div>
+
+
+      </mat-card-content>
+    </form>
+  </div>
+  <div style="text-align: end;" class="actions">
+    <button mat-button (click)="navigateBack()" color="accent">Nazad</button>
+    <button mat-flat-button color="primary"
+            (click)="saveObavestenje()"
+            [disabled]="!form.valid">Sacuvaj
+    </button>
+  </div>
+</div>

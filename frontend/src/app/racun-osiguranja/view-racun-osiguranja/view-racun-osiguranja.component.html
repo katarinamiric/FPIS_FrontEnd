@@ -1,0 +1,82 @@
+<h2 mat-dialog-title>Pregled Racuna</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="row" style="margin-top: 2em;">
+    <div class="col-xs-3">
+      <mat-icon>event_note</mat-icon>
+    </div>
+
+    <div class="col-xs-1" style="margin-left: 2em;">
+      <mat-divider [vertical]="true" style="margin-left: 0; height: 300px;"></mat-divider>
+    </div>
+
+    <div class="col-xs-2" style="margin-left: 2em;">
+      <div class="row" style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">Datum</label>
+          <div>{{racun?.datum | date}}</div>
+        </fieldset>
+      </div>
+
+      <div class="row" style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">Nacin placanja</label>
+          <div>{{racun?.nacinPlacanja?.name }}</div>
+        </fieldset>
+      </div>
+
+
+      <div class="row" style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">Poziv na broj</label>
+          <div>{{racun?.pozivNaBroj }}</div>
+        </fieldset>
+      </div>
+      <div class="row" style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">Radnik</label>
+          <div>{{racun?.radnik?.name }}</div>
+        </fieldset>
+      </div>
+      <div class="row" style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">Br ugovora</label>
+          <div>{{racun?.brojUgovora}}</div>
+        </fieldset>
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-4"></div>
+    <div class="col-xs-6" style="margin-left: 2em;">
+      <label class="nt-subheader-clean">Stavke racuna</label>
+      <table>
+        <tr>
+          <th>Naziv vrste osiguranja</th>
+          <th>Cena</th>
+        </tr>
+
+          <tr *ngFor="let stavka of racun?.stavke">
+            <td>{{stavka.nazivVrsteOsiguranja}}</td>
+            <td>{{stavka.cena}}</td>
+          </tr>
+      </table>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="col-xs-8"></div>
+    <div class="col-xs-2">
+      <div  style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">Ukupan iznos: &nbsp; &nbsp;&nbsp; </label>
+          <b>{{ racun?.iznos }}</b>
+        </fieldset>
+      </div>
+
+    </div>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="actions">
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+</mat-dialog-actions>

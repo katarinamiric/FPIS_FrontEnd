@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col-lg-10"></div>
+  <div class="col-lg-2">
+
+    <button mat-menu-item (click)="addStavka()">
+      <mat-icon> add_circle_outline</mat-icon>
+      <span>Dodaj stavku</span>
+    </button>
+  </div>
+</div>
+<p-table [rowHover]="true" #dt1 [value]="stavke"
+         [paginator]="true"
+         [showCurrentPageReport]="true"
+         [rows]="10"
+         styleClass="p-datatable-striped"
+         (load)="loadStavke()">
+
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 50px">#</th>
+      <th>Naziv Vrste Osiguranja</th>
+      <th>Cena</th>
+      <th style="width: 100px;"></th>
+    </tr>
+
+  </ng-template>
+  <ng-template pTemplate="body" let-stavka let-i="rowIndex">
+    <tr>
+      <td>{{(i + 1)}}</td>
+      <td>{{(stavka.nazivVrsteOsiguranja)}}</td>
+      <td>{{stavka.cena}}</td>
+      <td>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="editStavka(stavka, i)">
+            <mat-icon>edit</mat-icon>
+            <span>Izmeni</span>
+          </button>
+          <button mat-menu-item (click)="deleteStavka(stavka, i)">
+            <mat-icon>delete</mat-icon>
+            <span>Obrisi</span>
+          </button>
+        </mat-menu>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

@@ -1,0 +1,60 @@
+<p-table [value]="ugovori" #dt1 selectionMode="single" [(selection)]="selectedUgovor" dataKey="id">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Broj ugovota</th>
+      <th>Datum</th>
+      <th>Potpisao</th>
+      <th>ID drzave</th>
+      <th>Sifra zahteva</th>
+      <th>Sifra radnika</th>
+    </tr>
+    <tr class="pretrazi">
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'id', 'contains')"
+               [value]="dt1.filters['id']?.value" class="p-column-filter" placeholder="Pretraži broj ugovora">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'datum', 'contains')"
+               [value]="dt1.filters['datum']?.value" placeholder="Pretraži datum"
+               class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'potpisao', 'contains')"
+               [value]="dt1.filters['potpisao']?.value" placeholder="Pretraži potpisao" class="p-column-filter">
+      </th>
+
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'idDrzave', 'contains')"
+               [value]="dt1.filters['idDrzave']?.value" placeholder="Pretraži id drzave" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'sifraZahteva', 'contains')"
+               [value]="dt1.filters['sifraZahteva']?.value" class="p-column-filter" placeholder="Pretraži sifru zahteva">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'sifraRadnika', 'contains')"
+               [value]="dt1.filters['sifraRadnika']?.value" class="p-column-filter" placeholder="Pretraži sifru radnika">
+      </th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-ugovor>
+    <tr [pSelectableRow]="ugovor">
+      <td>{{ugovor.id}}</td>
+      <td>{{ugovor.datum | date: 'dd.MM.yyyy.'}}</td>
+      <td>{{ugovor.potpisao}}</td>
+      <td>{{ugovor.idDrzave}}</td>
+      <td>{{ugovor.sifraZahteva}}</td>
+      <td>{{ugovor.sifraRadnika}}</td>
+    </tr>
+  </ng-template>
+</p-table>
+<mat-dialog-actions class="actions">
+  <button mat-button mat-dialog-close color="accent">Nazad</button>
+  <button mat-flat-button color="primary"
+          (click)="izaberiUgovor()"
+          [disabled]="!selectedUgovor">Izaberi
+  </button>
+</mat-dialog-actions>
+
+

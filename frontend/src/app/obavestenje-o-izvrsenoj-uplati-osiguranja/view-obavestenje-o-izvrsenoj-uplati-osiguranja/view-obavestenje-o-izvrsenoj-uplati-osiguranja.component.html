@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>Pregled Obavestenja</h2>
+<mat-dialog-content class="mat-typography">
+  <div class="row" style="margin-top: 2em;">
+    <div class="col-xs-3">
+      <mat-icon>account_balance</mat-icon>
+
+    </div>
+    <div class="col-xs-1" style="margin-left: 2em;">
+    <mat-divider [vertical]="true" style="margin-left: 0; height: 300px;"></mat-divider>
+    </div>
+    <div class="col-xs-2" style="margin-left: 2em;">
+
+      <div class="row" style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">ID</label>
+          <div>{{data?.id}}</div>
+        </fieldset>
+      </div>
+
+      <div class="row" style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">Svrha obavestenja</label>
+          <div>{{data?.svrhaObavestenja }}</div>
+        </fieldset>
+      </div>
+
+      <div class="row" style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">Datum</label>
+          <div>{{data?.datum | date: 'dd.MM.yyyy'}}</div>
+        </fieldset>
+      </div>
+
+      <div class="row" style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">Sifra radnika</label>
+          <div>{{data?.sifraRadnika }}</div>
+        </fieldset>
+      </div>
+    </div>
+    <div class="col-xs-2" style="margin-left: 2em;">
+      <div class="row" style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">ID osiguravajuce kuce</label>
+          <div>{{data?.idOsigKuce }}</div>
+        </fieldset>
+      </div>
+
+      <div class="row" style="margin-bottom: 1em;">
+        <fieldset class="form-group">
+          <label class="nt-subheader-clean">ID uplatnice</label>
+          <div>{{data?.idUplatnice}}</div>
+        </fieldset>
+      </div>
+
+    </div>
+
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions class="actions">
+  <button mat-button mat-dialog-close color="accent">Cancel</button>
+</mat-dialog-actions>

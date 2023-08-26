@@ -1,0 +1,108 @@
+<div class="row">
+  <div class="col-lg-10"></div>
+  <div class="col-lg-2">
+
+    <button mat-menu-item (click)="addObavestenje()">
+      <mat-icon> add_circle_outline</mat-icon>
+      <span>Dodaj obavestenje</span>
+    </button>
+  </div>
+</div>
+<p-table [rowHover]="true" #dt1 [value]="obavestenja"
+         [paginator]="true"
+         [showCurrentPageReport]="true"
+         [rows]="10"
+         (load)="loadObavestenja()"
+         styleClass="p-datatable-striped">
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 50px">#</th>
+      <th [pSortableColumn]="'id'">ID
+      </th>
+
+      <th [pSortableColumn]="'svrhaObavestenja'">Svrha obavestenja
+      </th>
+
+      <th [pSortableColumn]="'datum'">Datum
+      </th>
+
+      <th [pSortableColumn]="'sifraRadnika'">Sifra Radnika
+      </th>
+
+      <th [pSortableColumn]="'idOsigKuce'">ID osiguravajuce kuce
+      </th>
+
+      <th [pSortableColumn]="'idUplatnice'">ID uplatnice
+      </th>
+
+      <th style="width: 100px;"></th>
+    </tr>
+
+    <tr class="pretrazi">
+      <th></th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'id', 'contains')"
+               [value]="dt1.filters['id']?.value" placeholder="Pretraži id" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'svrhaObavestenja', 'contains')"
+               [value]="dt1.filters['svrhaObavestenja']?.value" placeholder="Pretraži svrhu obavestenja"
+               class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'datum', 'contains')"
+               [value]="dt1.filters['datum']?.value" placeholder="Pretraži datum" class="p-column-filter">
+      </th>
+
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'sifraRadnika', 'contains')"
+               [value]="dt1.filters['sifraRadnika']?.value" placeholder="Pretraži sifra Radnika"
+               class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'idOsigKuce', 'contains')"
+               [value]="dt1.filters['idOsigKuce']?.value" placeholder="Pretraži id OsigKuce" class="p-column-filter">
+      </th>
+      <th>
+
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'idUplatnice', 'contains')"
+               [value]="dt1.filters['idUplatnice']?.value" placeholder="Pretraži id uplatnice" class="p-column-filter">
+      </th>
+
+
+      <th></th>
+    </tr>
+
+  </ng-template>
+  <ng-template pTemplate="body" let-obavestenje let-i="rowIndex">
+    <tr>
+      <td>{{(i + 1)}}</td>
+      <td>{{(obavestenje.id)}}</td>
+      <td>{{obavestenje.svrhaObavestenja}}</td>
+      <td>{{obavestenje.datum | date: 'dd.MM.yyyy'}}</td>
+      <td>{{obavestenje.sifraRadnika}}</td>
+      <td>{{obavestenje.idOsigKuce}}</td>
+      <td>{{obavestenje.idUplatnice}}</td>
+      <td>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="editObavestenje(obavestenje)">
+            <mat-icon>edit</mat-icon>
+            <span>Izmeni</span>
+          </button>
+          <button mat-menu-item (click)="viewObavestenje(obavestenje)">
+            <mat-icon>remove_red_eye</mat-icon>
+            <span>Pogledaj</span>
+          </button>
+          <button mat-menu-item (click)="deleteObavestenje(obavestenje)">
+            <mat-icon>delete</mat-icon>
+            <span>Obrisi</span>
+          </button>
+        </mat-menu>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

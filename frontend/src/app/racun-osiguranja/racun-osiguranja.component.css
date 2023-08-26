@@ -1,0 +1,14 @@
+tr {
+  font-size: 12px;
+  font-family: Verdana;
+}
+
+th, td{
+  text-align: center !important;
+}
+
+.pretrazi{
+  font-size: 10px;
+
+  font-family: Verdana;
+}

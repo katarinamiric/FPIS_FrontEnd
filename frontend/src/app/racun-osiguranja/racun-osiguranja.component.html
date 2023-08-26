@@ -1,0 +1,117 @@
+<div class="row">
+  <div class="col-lg-10"></div>
+  <div class="col-lg-2">
+
+    <button mat-menu-item (click)="addRacun()">
+      <mat-icon> add_circle_outline</mat-icon>
+      <span>Dodaj racun</span>
+    </button>
+  </div>
+</div>
+<p-table [rowHover]="true" #dt1 [value]="racuni"
+         [paginator]="true"
+         [rows]="10"
+         (load)="loadRacuni()"
+         styleClass="p-datatable-striped"
+>
+
+  <ng-template pTemplate="header">
+    <tr>
+      <th style="width: 50px">#</th>
+      <th [pSortableColumn]="'id'">ID
+        <p-sortIcon [field]="'id'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'datum'">Datum
+        <p-sortIcon [field]="'datum'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'pozivNaBroj'">Poziv na broj
+        <p-sortIcon [field]="'pozivNaBroj'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'iznos'">Iznos
+        <p-sortIcon [field]="'iznos'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'brojUgovora'">Broj ugovora
+        <p-sortIcon [field]="'brojUgovora'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'idNacinPlacanja'">ID nacina placanja
+        <p-sortIcon [field]="'idNacinPlacanja'"></p-sortIcon>
+      </th>
+      <th [pSortableColumn]="'sifraRadnika'">Sifra radn8ka
+        <p-sortIcon [field]="'sifraRadnika'"></p-sortIcon>
+      </th>
+      <th></th>
+
+    </tr>
+
+    <tr>
+      <th></th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'id', 'contains')"
+               [value]="dt1.filters['id']?.value" placeholder="Pretraži broj racuna"
+               class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'datum', 'contains')"
+               [value]="dt1.filters['datum']?.value" placeholder="Pretraži datum"
+               class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'pozivNaBroj', 'contains')"
+               [value]="dt1.filters['pozivNaBroj']?.value" placeholder="Pretraži poziv na Broj"
+               class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'iznos', 'contains')"
+               [value]="dt1.filters['iznos']?.value" placeholder="Pretraži iznos"
+               class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'brojUgovora', 'contains')"
+               [value]="dt1.filters['brojUgovora']?.value" placeholder="Pretraži br ugovora"
+               class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'nacinPlacanjaId', 'contains')"
+               [value]="dt1.filters['nacinPlacanjaId']?.value" placeholder="Pretraži nacin placanja ID" class="p-column-filter">
+      </th>
+      <th>
+        <input pInputText type="text" (input)="dt1.filter($event.target.value, 'sifraRadnika', 'contains')"
+               [value]="dt1.filters['sifraRadnika']?.value" placeholder="Pretraži sifru radnika" class="p-column-filter">
+      </th>
+      <th style="width: 100px;"></th>
+
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-racun let-i="rowIndex">
+    <tr>
+      <td>{{(i + 1)}}</td>
+      <td>{{(racun.id)}}</td>
+      <td>{{racun.datum  | date: 'dd.MM.yyyy.'}}</td>
+      <td>{{racun.pozivNaBroj}}</td>
+      <td>{{racun.iznos}}</td>
+      <td>{{racun.brojUgovora}}</td>
+      <td>{{racun.nacinPlacanjaId}}</td>
+      <td>{{racun.sifraRadnika}}</td>
+      <td>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="editRacun(racun)">
+            <mat-icon>edit</mat-icon>
+            <span>Izmeni</span>
+          </button>
+          <button mat-menu-item (click)="viewRacun(racun)">
+            <mat-icon>remove_red_eye</mat-icon>
+            <span>Pogledaj</span>
+          </button>
+          <button mat-menu-item (click)="deleteRacun(racun)">
+            <mat-icon>delete</mat-icon>
+            <span>Obrisi</span>
+          </button>
+
+        </mat-menu>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
