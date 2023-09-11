@@ -23,7 +23,7 @@ import {
   selectUgovori,
   selectUkupanIznos
 } from '../../store/selectors';
-import {takeUntil} from 'rxjs/operators';
+import {filter, takeUntil} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {AppState} from '../../store/app.state';
 import {Subject} from 'rxjs';
@@ -31,16 +31,37 @@ import {StavkaRacunaOsiguranja} from '../../model/stavka-racuna-osiguranja.model
 import {MatDialog} from '@angular/material/dialog';
 import {ToastrService} from 'ngx-toastr';
 import {PretragaUgovoraComponent} from "../pretraga-ugovora/pretraga-ugovora.component";
-
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter} from "@angular/material-moment-adapter";
+export const DATE_FORMAT = {
+  parse: {
+    dateInput: 'DD.MM.YYYY',
+  },
+  display: {
+    dateInput: 'DD.MM.YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  }
+};
 @Component({
   selector: 'app-add-racun-osiguranja',
   templateUrl: './add-racun-osiguranja.component.html',
-  styleUrls: ['./add-racun-osiguranja.component.css']
+  styleUrls: ['./add-racun-osiguranja.component.css'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS]
+    },
+
+    {provide: MAT_DATE_FORMATS, useValue: DATE_FORMAT},
+  ]
 })
 export class AddRacunOsiguranjaComponent implements OnInit {
   form: FormGroup;
   racun: RacunOsiguranja;
-  stavke: StavkaRacunaOsiguranja[];
+  stavke: StavkaRacunaOsiguranja[] = [];
   ugovori: UgovorOOsiguranju[];
   radnici: Radnik[];
   naciniPlacanja: NacinPlacanja[];
@@ -122,8 +143,8 @@ export class AddRacunOsiguranjaComponent implements OnInit {
       datum: new Date(this.racun.datum),
       pozivNaBroj: this.racun.pozivNaBroj,
       radnik: this.racun.radnik,
-      brojUgovora: this.racun.ugovor.id,
-      sifraZahteva: this.racun.ugovor.sifraZahteva,
+      brojUgovora: this.racun.ugovor ? this.racun.ugovor.id : null,
+      sifraZahteva: this.racun.ugovor ? this.racun.ugovor.sifraZahteva : null,
       stavke: this.stavke,
       nacinPlacanja: this.racun.nacinPlacanja,
     });
@@ -142,7 +163,7 @@ export class AddRacunOsiguranjaComponent implements OnInit {
     const racun = {
       id: formData.id,
       pozivNaBroj: formData.pozivNaBroj,
-      datum: new Date(formData.datum),
+      datum: formData.datum,
       brojUgovora: formData.brojUgovora,
       nacinPlacanjaId: formData.nacinPlacanja.id,
       sifraRadnika: formData.radnik.id,

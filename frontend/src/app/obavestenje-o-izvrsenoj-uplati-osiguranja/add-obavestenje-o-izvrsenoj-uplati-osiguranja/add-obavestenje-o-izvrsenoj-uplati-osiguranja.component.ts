@@ -135,10 +135,10 @@ export class AddObavestenjeOIzvrsenojUplatiOsiguranjaComponent implements OnInit
     this.form.patchValue({
       id: this.selectedObavestenje.id,
       svrhaObavestenja: this.selectedObavestenje.svrhaObavestenja,
-      datum: this.selectedObavestenje.datum,
+      datum: new Date(this.selectedObavestenje.datum),
       idUplatnice: this.selectedObavestenje.idUplatnice,
-      iznosUplatnice: this.selectedObavestenje.uplatnica.iznos,
-      svrhaUplatnice: this.selectedObavestenje.uplatnica.svrhaUplate,
+      iznosUplatnice: this.selectedObavestenje.uplatnica ? this.selectedObavestenje.uplatnica.iznos :  null,
+      svrhaUplatnice: this.selectedObavestenje.uplatnica ? this.selectedObavestenje.uplatnica.svrhaUplate : null,
       valuta: this.selectedObavestenje.valuta,
       model: this.selectedObavestenje.model,
       osiguravajucaKuca: this.selectedObavestenje.osiguravajucaKuca,

@@ -5,10 +5,11 @@
       <div class="col-lg-10"></div>
       <div class="col-lg-2">
 
-        <button mat-menu-item (click)="saveRacun()" [disabled]="!form.valid || stavke?.length == 0">
+        <button mat-menu-item (click)="saveRacun()" [disabled]="!form.valid">
           <mat-icon> save</mat-icon>
           <span>Sacuvaj racun</span>
         </button>
+
       </div>
     </div>
     <mat-vertical-stepper [linear]="true">
